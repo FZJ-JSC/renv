@@ -30,24 +30,24 @@ Right now, only Slurm is supported; but other schedulers are prepared. Please fi
 ## Examples
 
 * Simple usage:
-
-        ```
-        $ srun -n 2 renv ABC env | grep ABC
-        ABC=1
-        ABC=2
-        ```
+    
+    ```shell
+    $ srun -n 2 renv ABC env | grep ABC
+    ABC=1
+    ABC=2
+    ```
 * Set environment variable CUDA_VISIBLE_DEVICES to 3 for rank 0 and 2 for rank 1:
 
-        ```
-        $ srun -n 2 renv --map '0:3,1:2' CUDA_VISIBLE_DEVICES env | grep CUDA_VISIBLE_DEVICES
-        ```
+    ```shell
+    $ srun -n 2 renv --map '0:3,1:2' CUDA_VISIBLE_DEVICES env | grep CUDA_VISIBLE_DEVICES
+    ```
 * Combine both examples by stacking renv:
 
-        ```
-        $ srun -n 1 renv ABC renv --map '0:2,1:2' CUDA_VISIBLE_DEVICES env | grep "CUDA_VISIBLE_DEVICES\|ABC"
-        ```
+    ```shell
+    $ srun -n 1 renv ABC renv --map '0:2,1:2' CUDA_VISIBLE_DEVICES env | grep "CUDA_VISIBLE_DEVICES\|ABC"
+    ```
 * Combine with env:
 
-        ```
-        $ srun -n 1 env ABC=DEF CUDA_VISIBLE_DEVICES=0 renv --map '1:3,2:2' CUDA_VISIBLE_DEVICES env | grep "CUDA_VISIBLE_DEVICES\|ABC"
-        ```
+    ```shell
+    $ srun -n 1 env ABC=DEF CUDA_VISIBLE_DEVICES=0 renv --map '1:3,2:2' CUDA_VISIBLE_DEVICES env | grep "CUDA_VISIBLE_DEVICES\|ABC"
+    ```
