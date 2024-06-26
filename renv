@@ -8,56 +8,52 @@ import os
 
 
 def main(args):
-	env = os.environ.copy()
+    env = os.environ.copy()
 
-	rank_env_vars = {
-		'slurm': {
-			'global': 'SLURM_PROCID',
-			'local': 'SLURM_LOCALID'
-		}
-	}
+    rank_env_vars = {"slurm": {"global": "SLURM_PROCID", "local": "SLURM_LOCALID"}}
 
-	if args.glob is True:
-		lookup_str = rank_env_vars[args.source]['global']
-	else:
-		lookup_str = rank_env_vars[args.source]['local']
+    if args.glob is True:
+        lookup_str = rank_env_vars[args.source]["global"]
+    else:
+        lookup_str = rank_env_vars[args.source]["local"]
 
-	if lookup_str not in env:
-		print(f'No MPI environment, {lookup_str} not found')
-		raise SystemExit(1)
+    if lookup_str not in env:
+        print(f"No MPI environment, {lookup_str} not found")
+        raise SystemExit(1)
 
-	# Parse map, if it exists
-	if args.map is not None:
-		map = {}
-		# parse map and remove quotes around values
-		_map = args.map.split(',')
-		for keyval in _map:
-			_keyval = keyval.split(':')
-			key = _keyval[0]
-			value = _keyval[1].strip()
-			if (value[0] == '"') or (value[0] == '\''):
-				value = value[1:-1]
-			map[key] = value
+    # Parse map, if it exists
+    if args.map is not None:
+        map = {}
+        # parse map and remove quotes around values
+        _map = args.map.split(",")
+        for keyval in _map:
+            _keyval = keyval.split(":")
+            key = _keyval[0]
+            value = _keyval[1].strip()
+            if (value[0] == '"') or (value[0] == "'"):
+                value = value[1:-1]
+            map[key] = value
 
-	env_var = args.ENVVAR[0]
+    env_var = args.ENVVAR[0]
 
-	# Check if env var is already defined
-	if env_var in env and not args.force:
-		print(f'{env_var} is already defined; fix or launch with --force')
-		raise SystemExit(1)
+    # Check if env var is already defined
+    if env_var in env and not args.force:
+        print(f"{env_var} is already defined; fix or launch with --force")
+        raise SystemExit(1)
 
-	# Apply map, if it exists
-	if args.map is not None:
-		if env[lookup_str] in map:
-			env[env_var] = map[env[lookup_str]]
-	else:
-		env[env_var] = env[lookup_str]
+    # Apply map, if it exists
+    if args.map is not None:
+        if env[lookup_str] in map:
+            env[env_var] = map[env[lookup_str]]
+    else:
+        env[env_var] = env[lookup_str]
 
-	# Replace current process by env-fixed process, if cmd exists
-	if args.cmd is not None:
-		sys.stdout.flush()
-		sys.stderr.flush()
-		os.execvpe(args.cmd[0], args.cmd, env)
+    # Replace current process by env-fixed process, if cmd exists
+    if args.cmd is not None:
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os.execvpe(args.cmd[0], args.cmd, env)
+
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='renv: Set environment variables specific to MPI rank.', epilog="""
