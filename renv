@@ -4,10 +4,7 @@
 
 import sys
 import argparse
-import shlex
-import subprocess
 import os
-import ast
 
 def main(args):
 	env = os.environ.copy()
