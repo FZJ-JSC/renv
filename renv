@@ -29,9 +29,7 @@ def main(args):
         for keyval in _task_map:
             _keyval = keyval.split(":")
             key = _keyval[0]
-            value = _keyval[1].strip()
-            if (value[0] == '"') or (value[0] == "'"):
-                value = value[1:-1]
+            value = _keyval[1].strip().strip("\"'")
             task_map[key] = value
 
     env_var = args.ENVVAR[0]
