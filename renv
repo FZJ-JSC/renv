@@ -56,7 +56,8 @@ def main(args):
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description='renv: Set environment variables specific to MPI rank.', epilog="""
+
+    epilog_raw=r"""
 Examples:
   Set environment variable ABC to 0 for task 0 and 1 for task 1:
   $ srun -n 2 renv ABC env | grep ABC
@@ -68,13 +69,42 @@ Examples:
 
   Combine both examples by stacking renv:
   $ srun -n 1 renv ABC renv --map '0:2,1:2' CUDA_VIS env | grep 'CUDA_VIS\\|ABC'
-  """, formatter_class=argparse.RawDescriptionHelpFormatter)
-	parser.add_argument('ENVVAR', type=str, nargs=1, help='Environment variable to set')
-	parser.add_argument('-g', '--global', dest='glob', action='store_true', help='Use global rank indices; default: node-local indices')
-	parser.add_argument('-s', '--source', choices=['slurm', 'mpi', 'pmi'], help=argparse.SUPPRESS, default='slurm')
-	parser.add_argument('-f', '--force', action='store_true', help='Overwrite existing env var')
-	parser.add_argument('-m', '--map', type=str, help='dict-like string to map task IDs to values; example: --map "1: ABC, 2: DEF"')
-	parser.add_argument('cmd', nargs=argparse.REMAINDER, help="Command to run under new environment; renv can be stacked")
+  """
 
-	args = parser.parse_args()
-	sys.exit(main(args))
+    parser = argparse.ArgumentParser(
+        description="renv: Set environment variables specific to MPI rank.",
+        epilog=epilog_raw,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument("ENVVAR", type=str, nargs=1, help="Environment variable to set")
+    parser.add_argument(
+        "-g",
+        "--global",
+        dest="glob",
+        action="store_true",
+        help="Use global rank indices; default: node-local indices",
+    )
+    parser.add_argument(
+        "-s",
+        "--source",
+        choices=["slurm", "mpi", "pmi"],
+        help=argparse.SUPPRESS,
+        default="slurm",
+    )
+    parser.add_argument(
+        "-f", "--force", action="store_true", help="Overwrite existing env var"
+    )
+    parser.add_argument(
+        "-m",
+        "--map",
+        type=str,
+        help='dict-like string to map task IDs to values; example: --map "1: ABC, 2: DEF"',
+    )
+    parser.add_argument(
+        "cmd",
+        nargs=argparse.REMAINDER,
+        help="Command to run under new environment; renv can be stacked",
+    )
+
+    args = parser.parse_args()
+    sys.exit(main(args))
