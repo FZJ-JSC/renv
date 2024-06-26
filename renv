@@ -107,4 +107,4 @@ Examples:
     )
 
     args = parser.parse_args()
-    sys.exit(main(args))
+    main(args)
