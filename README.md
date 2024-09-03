@@ -16,7 +16,11 @@ This will set MYVAR to 0 for task 0 and 1 for task 1.
 
 ### Installation
 
-For now, please download `renv`, make it executable (`chmod +x renv`), and add it to your `$PATH` (`export PATH=$PWD:$PATH`).
+The program can be installed through pip:
+
+```bash
+python3 -m pip install git+https://github.com/FZJ-JSC/renv
+```
 
 ### Interface
 

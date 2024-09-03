@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "renv"
+version = "0.6"
+authors = [
+	{ name="Andreas Herten", email="a.herten@fz-juelich.de" }
+]
+description = "Rank-aware env; environment manipulator for Slurm/MPI"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.scripts]
+renv = 'renv.renv:cli'
+
+[project.urls]
+Homepage = "https://github.com/FZJ-JSC/renv"
+Issues = "https://github.com/FZJ-JSC/renv/issues"
