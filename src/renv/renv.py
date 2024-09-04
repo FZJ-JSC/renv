@@ -44,10 +44,10 @@ def cli():
         "-f", "--force", action="store_true", help="Overwrite existing env var"
     )
     parser.add_argument(
-        "--separator-map", type=str, default=",", help="Separator for individual map entries"
+        "--separator-map", type=str, default=os.environ.get("RENV_SEPARATOR_MAP", ","), help="Separator for individual map entries; overwrite globally with RENV_SEPARATOR_MAP"
     )
     parser.add_argument(
-        "--separator-keyval", type=str, default=":", help="Separator for key-value-pairs (key<sep>val) in the map entries"
+        "--separator-keyval", type=str, default=os.environ.get("RENV_SEPARATOR_KEYVAL", ":"), help="Separator for key-value-pairs (key<sep>val) in the map entries; overwrite globally with RENV_SEPARATOR_KEYVAL"
     )
     parser.add_argument(
         "-m",
