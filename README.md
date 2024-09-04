@@ -1,5 +1,7 @@
 # `renv`: Rank-aware `env`
 
+[![DOI](https://zenodo.org/badge/514209943.svg)](https://zenodo.org/badge/latestdoi/514209943)
+
 `renv` changes an environment variable according to the MPI rank / task ID of the process as a prefix to your application.
 
 Say goodbye to your complicated Bash wrapper scripts!
