@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "renv"
+authors:
+  - given-names: Andreas
+    family-names: Herten
+    affiliation: Forschungszentrum Jülich, Jülich Supercomputing Centre
+    orcid: 'https://orcid.org/0000-0002-7150-2505'
+abstract: "renv: Rank-aware env. Change an environment variable according to an MPI rank / Slurm task ID."
+repository-code: 'https://github.com/FZJ-JSC/renv'
+license: MIT
+date-released: '2024-09-04'
