@@ -28,6 +28,7 @@ python3 -m pip install git+https://github.com/FZJ-JSC/renv
 * `-g`, `--global`: Use global task IDs and not node-local task IDs (i.e. `SLURM_PROCID` instead of `SLURM_LOCALID`)
 * `-f`, `--force`: Allow overwrite a pre-existing environment variable
 * `-m`, `--map`: Don't simply set the task ID to the environment variable, but first replace it according to a map; i.e. `--map '0: 2'` would set the environment variable for task 0 to 2, and not to 0
+* `--separator-map`, `--separator-keyval`: Change the separator for parsing the map and the key-val-pairs, respectively. Default are `,` for entries in the map and `:` to separate keys and values.
 
 Right now, only Slurm is supported; but other schedulers are prepared. Please file an issue.
 

@@ -44,6 +44,12 @@ def cli():
         "-f", "--force", action="store_true", help="Overwrite existing env var"
     )
     parser.add_argument(
+        "--separator-map", type=str, default=",", help="Separator for individual map entries"
+    )
+    parser.add_argument(
+        "--separator-keyval", type=str, default=":", help="Separator for key-value-pairs (key<sep>val) in the map entries"
+    )
+    parser.add_argument(
         "-m",
         "--map",
         type=str,
@@ -76,9 +82,9 @@ def main(args):
     if args.map is not None:
         task_map = {}
         # parse map and remove quotes around values
-        _task_map = args.map.split(",")
+        _task_map = args.map.split(args.separator_map)
         for keyval in _task_map:
-            _keyval = keyval.split(":")
+            _keyval = keyval.split(args.separator_keyval)
             key = _keyval[0]
             value = _keyval[1].strip().strip("\"'")
             task_map[key] = value
